@@ -4,6 +4,7 @@ import com.Sigma.banks.model.Banks;
 import com.Sigma.banks.repository.BankRepository;
 import com.Sigma.banks.service.BankService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,47 +16,52 @@ public class Controller {
     public BankService bankService;
     public BankRepository bankRepository;
 
-    public void setBankService(BankService bankService){
+    public void setBankService(BankService bankService) {
         this.bankService = bankService;
     }
 
-    @GetMapping("/api/banks")
+    @RequestMapping(value = "/api/banks", //
+            method = RequestMethod.GET)
+    @ResponseBody
     public List<Banks> getBank() {
         List<Banks> banks = bankService.retrieveBanks();
         return banks;
     }
+
     @GetMapping("/api/bank/{id}")
-    public Banks getBanks(@PathVariable(name="id")Long id) {
+    public Banks getBanks(@PathVariable(name = "id") Long id) {
         return bankService.getBanks(id);
     }
+
     @GetMapping("/api/banks/purchase/{currency}")
     public List<Banks> getAllPurchaceCurrency(@PathVariable(name = "currency") String currency) {
         List<Banks> banks = bankService.getAllPurchaceCurrency(currency);
         return banks;
     }
+
     @GetMapping("/api/banks/sale/{currency}")
     public List<Banks> getAllSaleCurrency(@PathVariable(name = "currency") String currency) {
         List<Banks> banks = bankService.getAllSaleCurrency(currency);
         return banks;
     }
-    @PostMapping
-    public Banks create(@RequestBody Banks banks){
+
+    @RequestMapping(value = "/bank", //
+            method = RequestMethod.POST, //
+            consumes = {MediaType.APPLICATION_JSON_VALUE,
+                    MediaType.APPLICATION_XML_VALUE,
+                    MediaType.TEXT_PLAIN_VALUE})
+    @ResponseBody
+    public Banks create(@RequestBody Banks banks) {
         return bankService.saveBanks(banks);
     }
+
     @PutMapping(value = "/api/update/{id}")
-    public ResponseEntity<Banks> update(@PathVariable("id")Long id, @RequestBody Banks banks){
-        return bankRepository.findById(id).map(record->{
-            record.setBank(banks.getBank());
-            record.setCurrency(banks.getCurrency());
-            record.setPurchase(banks.getPurchase());
-            record.setSale(banks.getSale());
-            Banks updated = bankService.saveBanks(record);
-            return ResponseEntity.ok().body(updated);
-        }).orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<Banks> update(@PathVariable("id") Long id, @RequestBody Banks banks) {
+        return bankService.updateBanks(id,banks);
     }
 
     @DeleteMapping("/api/delete/{bank}")
-    public void deleteBank(@PathVariable(name="bank")String bank){
+    public void deleteBank(@PathVariable(name = "bank") String bank) {
         bankService.deleteBank(bank);
     }
 

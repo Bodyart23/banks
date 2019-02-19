@@ -19,4 +19,6 @@ public interface BankRepository extends JpaRepository<Banks, Long> {
     List<Banks> findAllSaleByCurrency(@Param("currency") String currency);
     @Query("delete from Banks u where u.bank = :bank")
     void deleteBanksByBank(@Param("bank") String bank);
+    @Query(value = "insert into banks (bank, currency, purchase, sale) VALUE (?,?,?,?)",nativeQuery = true)
+    Banks save(Banks banks);
 }

@@ -3,7 +3,9 @@ package com.Sigma.banks.service;
 import com.Sigma.banks.model.Banks;
 import com.Sigma.banks.repository.BankRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -11,7 +13,7 @@ import java.util.Optional;
 public class BankServiceImpl implements BankService {
     @Autowired
     private BankRepository bankRepository;
-
+    private BankService bankService;
     public void setBankRepository(BankRepository bankRepository){
         this.bankRepository = bankRepository;
     }
@@ -40,8 +42,15 @@ public class BankServiceImpl implements BankService {
     }
 
     @Override
-    public void updateBanks(Banks banks) {
-        bankRepository.save(banks);
+    public ResponseEntity<Banks> updateBanks(Long id, Banks banks) {
+        return bankRepository.findById(id).map(record -> {
+            record.setBank(banks.getBank());
+            record.setCurrency(banks.getCurrency());
+            record.setPurchase(banks.getPurchase());
+            record.setSale(banks.getSale());
+            Banks updated = bankService.saveBanks(record);
+            return ResponseEntity.ok().body(updated);
+        }).orElse(ResponseEntity.notFound().build());
     }
 
     @Override
