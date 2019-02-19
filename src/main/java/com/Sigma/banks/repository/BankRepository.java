@@ -21,6 +21,6 @@ public interface BankRepository extends JpaRepository<Banks, Long> {
     Banks save(Banks banks);
     @Query("select distinct u.currency from Banks u")
     ArrayList<String> getDistinctCurrency();
-    @Query("select u.bank,u.currency,u.purchase from Banks u where u.purchase = (select max (a.purchase) from Banks a where a.currency = :currency)")
+    @Query("select u.bank,u.currency,u.purchase from Banks u where u.purchase = (select min (a.purchase) from Banks a where a.currency = :currency)")
     ArrayList<Banks> getBestPurchase(@Param("currency") String currency);
 }
