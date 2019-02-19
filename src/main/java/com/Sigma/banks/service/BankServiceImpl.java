@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,6 +17,16 @@ public class BankServiceImpl implements BankService {
     private BankService bankService;
     public void setBankRepository(BankRepository bankRepository){
         this.bankRepository = bankRepository;
+    }
+
+    @Override
+    public ArrayList<ArrayList<Banks>> getTheBest(){
+        ArrayList<String> banks = bankRepository.getDistinctCurrency();
+        ArrayList<ArrayList<Banks>> bestPurchase = new ArrayList<>();
+        for (String currency: banks){
+            bestPurchase.add(bankRepository.getBestPurchase(currency));
+        }
+        return bestPurchase;
     }
 
     @Override

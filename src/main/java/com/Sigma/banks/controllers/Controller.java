@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -21,10 +22,11 @@ public class Controller {
     }
 
     @RequestMapping(value = "/api/banks", //
-            method = RequestMethod.GET)
+            method = RequestMethod.GET,
+    produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public List<Banks> getBank() {
-        List<Banks> banks = bankService.retrieveBanks();
+    public ArrayList<ArrayList<Banks>> getBank() {
+        ArrayList<ArrayList<Banks>> banks = bankService.getTheBest();
         return banks;
     }
 
