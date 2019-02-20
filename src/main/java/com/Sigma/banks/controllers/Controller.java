@@ -8,7 +8,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -22,11 +21,22 @@ public class Controller {
     }
 
     @RequestMapping(value = "/api/banks", //
-            method = RequestMethod.GET,
-    produces = MediaType.APPLICATION_JSON_VALUE)
+            method = RequestMethod.GET
+//    produces = MediaType.APPLICATION_JSON_VALUE
+    )
     @ResponseBody
-    public ArrayList<ArrayList<Banks>> getBank() {
-        ArrayList<ArrayList<Banks>> banks = bankService.getTheBest();
+    public List<Banks> getAll() {
+        List<Banks> banks = bankService.retrieveBanks();
+        return banks;
+    }
+
+    @RequestMapping(value = "/api/banks/statistics", //
+            method = RequestMethod.GET
+//    produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    @ResponseBody
+    public List<List<Banks>> getBank() {
+        List<List<Banks>> banks = bankService.getStatistics();
         return banks;
     }
 

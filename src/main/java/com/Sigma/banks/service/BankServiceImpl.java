@@ -20,13 +20,19 @@ public class BankServiceImpl implements BankService {
     }
 
     @Override
-    public ArrayList<ArrayList<Banks>> getTheBest(){
+    public List<List<Banks>> getStatistics(){
         ArrayList<String> banks = bankRepository.getDistinctCurrency();
-        ArrayList<ArrayList<Banks>> bestPurchase = new ArrayList<>();
+        ArrayList<List<Banks>> bestPurchase = new ArrayList<>();
         for (String currency: banks){
-            bestPurchase.add(bankRepository.getBestPurchase(currency));
+            bestPurchase.add( bankRepository.getBestPurchase(currency));
         }
-        return bestPurchase;
+        ArrayList<List<Banks>> bestSale = new ArrayList<>();
+        for (String currency: banks){
+            bestSale.add( bankRepository.getBestSale(currency));
+        }
+        List<List<Banks>> bestOffer = new ArrayList<>(bestPurchase);
+        bestOffer.addAll(bestSale);
+        return bestOffer;
     }
 
     @Override
