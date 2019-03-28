@@ -1,4 +1,4 @@
-package com.Sigma.banks;
+package com.banks;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
