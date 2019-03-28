@@ -1,4 +1,4 @@
-package com.Sigma.banks.model;
+package com.banks.model;
 
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
@@ -18,7 +18,6 @@ public class Banks {
     private String currency;
     private Double purchase;
     private Double sale;
-
 
     public Long getId() {
         return id;

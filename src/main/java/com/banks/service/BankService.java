@@ -1,6 +1,6 @@
-package com.Sigma.banks.service;
+package com.banks.service;
 
-import com.Sigma.banks.model.Banks;
+import com.banks.model.Banks;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;

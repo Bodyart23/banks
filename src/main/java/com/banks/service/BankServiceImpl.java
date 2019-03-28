@@ -1,7 +1,7 @@
-package com.Sigma.banks.service;
+package com.banks.service;
 
-import com.Sigma.banks.model.Banks;
-import com.Sigma.banks.repository.BankRepository;
+import com.banks.model.Banks;
+import com.banks.repository.BankRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;

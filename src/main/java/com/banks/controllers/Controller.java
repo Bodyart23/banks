@@ -1,8 +1,8 @@
-package com.Sigma.banks.controllers;
+package com.banks.controllers;
 
-import com.Sigma.banks.model.Banks;
-import com.Sigma.banks.repository.BankRepository;
-import com.Sigma.banks.service.BankService;
+import com.banks.model.Banks;
+import com.banks.repository.BankRepository;
+import com.banks.service.BankService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

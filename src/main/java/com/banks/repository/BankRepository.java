@@ -1,6 +1,6 @@
-package com.Sigma.banks.repository;
+package com.banks.repository;
 
-import com.Sigma.banks.model.Banks;
+import com.banks.model.Banks;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
